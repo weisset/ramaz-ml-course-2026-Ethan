@@ -23,7 +23,16 @@ def flatten(nested: list[list]) -> list:
         >>> flatten([])
         []
     """
-    raise NotImplementedError("Implement flatten()")
+    return [item for subList in nested for item in subList]
+    """
+    Ethan's notes:
+    having item before the for is the same as .append(item)
+    if it were item*2 then it's the same as .append(item*2) which would double each value
+    so first we find the first item in the main list
+    then we iterate through it, if it's not a sublist and just one value then we only append that
+    and each item we iterate through in the sublist is appended to the flattened list we are making
+    """
+    #raise NotImplementedError("Implement flatten()")
 
 
 def most_frequent(items: list) -> object:
