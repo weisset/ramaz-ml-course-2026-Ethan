@@ -8,7 +8,6 @@ from __future__ import annotations
 
 from typing import Callable
 
-
 # ── Part 1: Lists ─────────────────────────────────────────────────────────────
 
 
@@ -47,7 +46,28 @@ def most_frequent(items: list) -> object:
         >>> most_frequent(['a', 'b', 'a', 'c', 'a'])
         'a'
     """
-    raise NotImplementedError("Implement most_frequent()")
+    if len(items) == 0:
+        raise ValueError
+    
+    maxCount = 0
+    for element in set(items):
+        tempCount = items.count(element)
+        if tempCount > maxCount:
+            maxCount = tempCount
+            maxElement = element
+    
+    return maxElement
+    """
+    Ethan's notes:
+    set gets rid of all dupes, makes it easier to iterate through each unique element
+    count function will tell you how many times a specified element appears in your list
+
+    better version:
+    just iterate through original list and have a counter for each unique element
+    count goes up by one each time
+    you also check each count increase to see if that element is the new most frequent
+    """
+    #raise NotImplementedError("Implement most_frequent()")
 
 
 def running_average(numbers: list[float]) -> list[float]:
