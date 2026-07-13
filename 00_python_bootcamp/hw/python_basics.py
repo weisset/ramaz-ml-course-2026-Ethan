@@ -24,7 +24,7 @@ def flatten(nested: list[list]) -> list:
     """
     return [item for subList in nested for item in subList]
     """
-    Ethan's notes:
+    Ethan's Notes:
     having item before the for is the same as .append(item)
     if it were item*2 then it's the same as .append(item*2) which would double each value
     so first we find the first item in the main list
@@ -58,7 +58,7 @@ def most_frequent(items: list) -> object:
     
     return maxElement
     """
-    Ethan's notes:
+    Ethan's Notes:
     set gets rid of all dupes, makes it easier to iterate through each unique element
     count function will tell you how many times a specified element appears in your list
 
@@ -83,7 +83,26 @@ def running_average(numbers: list[float]) -> list[float]:
         >>> running_average([])
         []
     """
-    raise NotImplementedError("Implement running_average()")
+    averages = []
+    total = 0
+    for position, element in enumerate(numbers, start=1):
+        total += element
+        averages.append(total/position)
+    return averages
+    """
+    Ethan's Notes:
+    enumerate makes it so each element in numbers is the value in a key-value pari
+    the key assigned by enumerate is a counter for the position of each element in the iterable
+    start=1 makes it so it starts counting at one
+    so if you have [10.0, 15.0, 20.0] and use default start then each pair would be:
+    0, 10.0
+    1, 15.0
+    2, 20.0
+    and so by having it start at one you can easily divide by total elements in ur current avg
+    so basically you update the total and then divide by number of elements so far
+    then just append that
+    """
+    #raise NotImplementedError("Implement running_average()")
 
 
 def chunk(items: list, size: int) -> list[list]:
