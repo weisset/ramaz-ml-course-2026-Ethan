@@ -4,6 +4,7 @@ Complete the functions below. Each function has a docstring describing
 what it should do, along with examples. Run `uv run pytest` to check
 your work, and `uv run python score.py` to see your current grade.
 """
+
 from __future__ import annotations
 
 from typing import Callable
@@ -31,7 +32,7 @@ def flatten(nested: list[list]) -> list:
     then we iterate through it, if it's not a sublist and just one value then we only append that
     and each item we iterate through in the sublist is appended to the flattened list we are making
     """
-    #raise NotImplementedError("Implement flatten()")
+    # raise NotImplementedError("Implement flatten()")
 
 
 def most_frequent(items: list) -> object:
@@ -48,14 +49,14 @@ def most_frequent(items: list) -> object:
     """
     if len(items) == 0:
         raise ValueError
-    
+
     maxCount = 0
     for element in set(items):
         tempCount = items.count(element)
         if tempCount > maxCount:
             maxCount = tempCount
             maxElement = element
-    
+
     return maxElement
     """
     Ethan's Notes:
@@ -67,7 +68,7 @@ def most_frequent(items: list) -> object:
     count goes up by one each time
     you also check each count increase to see if that element is the new most frequent
     """
-    #raise NotImplementedError("Implement most_frequent()")
+    # raise NotImplementedError("Implement most_frequent()")
 
 
 def running_average(numbers: list[float]) -> list[float]:
@@ -87,7 +88,7 @@ def running_average(numbers: list[float]) -> list[float]:
     total = 0
     for position, element in enumerate(numbers, start=1):
         total += element
-        averages.append(total/position)
+        averages.append(total / position)
     return averages
     """
     Ethan's Notes:
@@ -102,7 +103,7 @@ def running_average(numbers: list[float]) -> list[float]:
     so basically you update the total and then divide by number of elements so far
     then just append that
     """
-    #raise NotImplementedError("Implement running_average()")
+    # raise NotImplementedError("Implement running_average()")
 
 
 def chunk(items: list, size: int) -> list[list]:
@@ -118,7 +119,15 @@ def chunk(items: list, size: int) -> list[list]:
         >>> chunk([], 4)
         []
     """
-    raise NotImplementedError("Implement chunk()")
+    return [items[i : i + size] for i in range(0, len(items), size)]
+    """
+    Ethan's Notes:
+    making a list where we append a list starting at position i and ending 1 position before i+size
+    because list[a:b] returns a list made of the elements in list starting at position a (inclusive)
+    and ending at the element before position b (so it's exclusive)
+    and then i increases every step by the value of size
+    """
+    # raise NotImplementedError("Implement chunk()")
 
 
 def rotate(items: list, k: int) -> list:
