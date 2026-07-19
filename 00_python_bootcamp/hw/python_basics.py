@@ -144,7 +144,29 @@ def rotate(items: list, k: int) -> list:
         >>> rotate([1, 2, 3], 4)
         [2, 3, 1]
     """
-    raise NotImplementedError("Implement rotate()")
+    if not items:
+        return items
+    trueK = k % len(items)
+    return items[trueK:] + items[:trueK]
+    """
+    Ethan's Notes:
+    first there's the if to make sure that we don't get an error when items is empty
+    because % (modulo) is division except it returns the remainder instead
+    so dividing by zero still isn't allowed
+    modulo is needed if k is further from 0 than len(items) (aka if |k| > |len(items)|)
+    because if you try to slice a list starting at a position bigger than the list it won't wrap it
+    instead it'll just return an empty list because if you start after the list there's nothing
+    
+    given a basic scenario where list is longer than k and k is positive:
+    if you want to rotate a list 3 spaces to the left
+    same as moving the item in position 3 (the 4th item) in the list to position 0 (the 1st item)
+    and then position 4 to position 1 and so on
+    that is represented by items[truek:]
+    but then you still have to wrap and do the items from position 0 up until position 3
+    and that's what items[:trueK] does
+    and then the plus is to concatenate them
+    """
+    # raise NotImplementedError("Implement rotate()")
 
 
 def run_length_encode(items: list) -> list[tuple]:
