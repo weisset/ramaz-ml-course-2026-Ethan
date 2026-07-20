@@ -92,7 +92,7 @@ def running_average(numbers: list[float]) -> list[float]:
     return averages
     """
     Ethan's Notes:
-    enumerate makes it so each element in numbers is the value in a key-value pari
+    enumerate makes it so each element in numbers is the value in a key-value pair
     the key assigned by enumerate is a counter for the position of each element in the iterable
     start=1 makes it so it starts counting at one
     so if you have [10.0, 15.0, 20.0] and use default start then each pair would be:
@@ -180,7 +180,35 @@ def run_length_encode(items: list) -> list[tuple]:
         >>> run_length_encode([])
         []
     """
-    raise NotImplementedError("Implement run_length_encode()")
+    if not items:
+        return items
+    
+    lastElement = items[0]
+    countConsec = 1
+    rleItems = []
+    for element in items[1:]:
+        if element == lastElement:
+            countConsec += 1
+        else:
+            rleItems.append((countConsec, lastElement))
+            lastElement = element
+            countConsec = 1
+    rleItems.append((countConsec, lastElement))
+    return rleItems
+    """
+    Ethan's Notes:
+    Okay so this isn't the ideal version but it seems very much good enough, nothing like n^2 or wtv
+    only inneficiency from my limited ai checking is items[1:] stores a separate list in memory
+    we know that index 0 is equivalent to itself the so we can start at index 1 with countConsec = 1
+    then we just keep checking if they're the same (no need to update lastElement if so)
+    if it's different then we append a tuple with the double parens (()) cuz that's how it works
+    then we reset last element and the count and go at it again
+    but when we get to element at index -1 (aka finish the list) then we won't record it in the for
+    that's because if it's still consecutive then we only up the count then exit the loop
+    and if it's different then we append the previous consecutive elements but then exit the loop
+    so that's why there's the extra append outside of the loop
+    """
+    # raise NotImplementedError("Implement run_length_encode()")
 
 
 def sliding_window(items: list, size: int) -> list[list]:
