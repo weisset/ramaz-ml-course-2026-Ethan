@@ -227,7 +227,29 @@ def sliding_window(items: list, size: int) -> list[list]:
         >>> sliding_window([], 2)
         []
     """
-    raise NotImplementedError("Implement sliding_window()")
+    if size > len(items):
+        return []
+    return [items[windowStart:size + windowStart] for windowStart in range(0,len(items) - size+1)]
+    """
+    Ethan's Notes:
+    first of all len(items) returns 0 if the list is empty so that's all good with the if statement
+        allegedly don't need if statement because range will do the same thing in edge case but wtv
+    have to return list of list btw so the slicing that gets appended already makes the sublist
+    need range with len in case items isn't basic and doesn't just have 1 at index 0
+    the range is the different positions (indices?) windowStart iterates through
+        so this means our first slice will start at index 0
+        and because where the range stops is exclusive we have the +1
+        remember iterating through range gives us what index the window starts at
+        so with first example 5-3+1 is 3 which means we stop after we do index 2
+        which means the last window starts with the int 3 since that's at index 2
+    so that explains windowsStart for items[windowStart:...]
+    and then for where to stop the slice it's still exclusive
+        so using the same example (first one):
+        if windowStart is at 0 then the stop of the slice is at index 3
+        but that actually means we do indices 0, 1, and 2
+        which is 3 individual items, exactly our size
+    """
+    # raise NotImplementedError("Implement sliding_window()")
 
 
 # ── Part 2: Dictionaries ──────────────────────────────────────────────────────
