@@ -182,7 +182,7 @@ def run_length_encode(items: list) -> list[tuple]:
     """
     if not items:
         return items
-    
+
     lastElement = items[0]
     countConsec = 1
     rleItems = []
@@ -229,7 +229,9 @@ def sliding_window(items: list, size: int) -> list[list]:
     """
     if size > len(items):
         return []
-    return [items[windowStart:size + windowStart] for windowStart in range(0,len(items) - size+1)]
+    return [
+        items[windowStart : size + windowStart] for windowStart in range(0, len(items) - size + 1)
+    ]
     """
     Ethan's Notes:
     first of all len(items) returns 0 if the list is empty so that's all good with the if statement
@@ -251,6 +253,20 @@ def sliding_window(items: list, size: int) -> list[list]:
     """
     # raise NotImplementedError("Implement sliding_window()")
 
+
+"""
+Ethan's Section 1.1 Lists Notes
+    Okay so overall pretty good answers as far as I can tell
+    There's a few opportunities to make it better using more complicated dictionary/key-value pairs
+    But I'd rather save that for the actual parts about dictionaries and sets
+    I only did some more basic versions
+    There is one heavily unoptimized answer (n^2 instead of n or wtv I kinda know what that means)
+    And I think I could also maybe use enumerate in one of my other answers but it looked more
+        complex than the other usage of enumerate and I think it's nice to really try to answer
+        with my own knowledge mostly
+    
+    So yeah main thing I could improve on is probably going to be covered in dictionaries and sets
+"""
 
 # ── Part 2: Dictionaries ──────────────────────────────────────────────────────
 
