@@ -280,7 +280,12 @@ def count_occurrences(items: list) -> dict:
         >>> count_occurrences([])
         {}
     """
-    raise NotImplementedError("Implement count_occurrences()")
+    occurrencesDict = {}
+    
+    for element in items:
+        occurrencesDict[element] = occurrencesDict.get(element, 0) + 1
+    return occurrencesDict
+    # raise NotImplementedError("Implement count_occurrences()")
 
 
 def invert_dict(d: dict) -> dict:
