@@ -292,11 +292,12 @@ def count_occurrences(items: list) -> dict:
     so first I make the dictionary both so i can call it and so I can return a blank one if needed
     then the idea is that i go through each element in items and do one of two things:
         if there is already a key value pair for that element in the dictionary then value += 1
-        if there is no key for that element yet i make it with a value of 0 then add 1
+        if there is no key for that element yet then a value of 0 is returned and then i add 1
     this happens because .get will check for that key, and return the value if it exists
-    but if it doesn't exist it creates the key and sets the value to 0
+    but if it doesn't exist it will return the value i put there, which is 0, not required tho
     and then we take that value of either 0 or whatever it is and add 1
-    and say that that new int is the value now for that key
+    and we set the item with element as the key to have the value that i just increased
+    and if the item doesn't exist yet then this makes it
     we iterate through the whole list then return the dictionary
     """
 
@@ -307,7 +308,19 @@ def invert_dict(d: dict) -> dict:
         >>> invert_dict({'a': 1, 'b': 2})
         {1: 'a', 2: 'b'}
     """
-    raise NotImplementedError("Implement invert_dict()")
+    return {value:key for key, value in d.items()}
+    # raise NotImplementedError("Implement invert_dict()")
+    """
+    Ethan's Notes:
+    so dictionary comprehension also exists
+    doing .items will loop through keys and values together, so i can get them both at once
+    so instead of for key in d and then doing d[key]:key which would check d again for value of key
+    i just take the value when i'm already taking the key and then swapping them
+    with list comprehension it would basically append what you had first
+        for dictionaries to do its version of appending with dictionary comprehension
+        you have to do it as key:value to append the pair
+    so then just iterate through dictionary and do that but swap key and value when appending
+    """
 
 
 def group_by(items: list[dict], key: str) -> dict[str, list[dict]]:
