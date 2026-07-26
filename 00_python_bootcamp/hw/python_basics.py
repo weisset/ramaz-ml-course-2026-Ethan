@@ -338,7 +338,23 @@ def group_by(items: list[dict], key: str) -> dict[str, list[dict]]:
         >>> len(result['HR'])
         1
     """
-    raise NotImplementedError("Implement group_by()")
+    groups = {}
+    for d in items:
+        groups.setdefault(d[key], []).append(d)
+    return groups
+    # raise NotImplementedError("Implement group_by()")
+    """
+    Ethan's Notes:
+    iterate through list so we are going dictionary by dictionary
+    .setdefault returns the value associated with d[key] just like .get
+    but what makes it different from .get is that it won't just return [] if the pair doesn't exist
+    instead, if the pair doesn't exist, it will create the pair d[key]: [] in groups
+    and then returns that value []
+    and then we append the dictionary we are looking at in items to that list
+    and iterate through each dictionary in items, and if d[key] is the same as another dictionary
+        then they are appended to the same list ofc
+    then we return groups
+    """
 
 
 def deep_get(d: dict, path: str, default: object = None) -> object:
