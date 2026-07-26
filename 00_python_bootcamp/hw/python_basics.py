@@ -284,9 +284,21 @@ def count_occurrences(items: list) -> dict:
     
     for element in items:
         occurrencesDict[element] = occurrencesDict.get(element, 0) + 1
+    
     return occurrencesDict
     # raise NotImplementedError("Implement count_occurrences()")
-
+    """
+    Ethan's Notes:
+    so first I make the dictionary both so i can call it and so I can return a blank one if needed
+    then the idea is that i go through each element in items and do one of two things:
+        if there is already a key value pair for that element in the dictionary then value += 1
+        if there is no key for that element yet i make it with a value of 0 then add 1
+    this happens because .get will check for that key, and return the value if it exists
+    but if it doesn't exist it creates the key and sets the value to 0
+    and then we take that value of either 0 or whatever it is and add 1
+    and say that that new int is the value now for that key
+    we iterate through the whole list then return the dictionary
+    """
 
 def invert_dict(d: dict) -> dict:
     """Return a new dict with keys and values swapped.
