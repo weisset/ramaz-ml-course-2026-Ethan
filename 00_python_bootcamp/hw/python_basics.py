@@ -369,7 +369,24 @@ def deep_get(d: dict, path: str, default: object = None) -> object:
         -1
         >>> deep_get({'x': 10}, 'y')  # returns None (default)
     """
-    raise NotImplementedError("Implement deep_get()")
+    for key in path.split("."):
+        if isinstance(d, dict):
+            d = d.get(key, default)
+        else:
+            return default
+    return d
+    # raise NotImplementedError("Implement deep_get()")
+    """
+    Ethan's Notes:
+    .split('.') means that we only look at any one segment of the string until we hit a .
+    then we take that segmant and run the loop
+    then we move to the next segment
+    isinstance checks if d is the data type dict
+    so if it's not a dictionary then we return default
+    but if it is we get the value from the rest of the nested dictionary
+    if we are still iterating but d is not a dictionary then we return default
+    at the end we return d
+    """
 
 
 def two_sum(nums: list[int], target: int) -> tuple[int, int] | None:
@@ -388,8 +405,26 @@ def two_sum(nums: list[int], target: int) -> tuple[int, int] | None:
         >>> two_sum([1, 2, 3], 100)
         None
     """
-    raise NotImplementedError("Implement two_sum()")
-
+    seen = {}
+    for i, n in enumerate(nums):
+        if n <= target:
+            try:
+                return (seen[target - n], i)
+            except KeyError:
+                seen[n] = i
+    return None
+    # raise NotImplementedError("Implement two_sum()")
+    """
+    Ethan's Notes:
+    Technically might not work if negative numbers get involved
+    also try except might not be most optimal but i wanted to try it
+    i think it's pretty self-explanatory code except enumerate which i've explained before
+    """
+"""
+Ethan's Section 1.2 Dictionaries Notes
+    we chilling ong
+    shape lowk is cheating
+"""
 
 # ── Part 3: Sets ──────────────────────────────────────────────────────────────
 
@@ -405,7 +440,15 @@ def find_duplicates(items: list) -> set:
         >>> find_duplicates([])
         set()
     """
-    raise NotImplementedError("Implement find_duplicates()")
+    seen = set()
+    dupes = set()
+    for i in items:
+        if i in seen:
+            dupes.add(i)
+        else:
+            seen.add(i)
+    return dupes
+    # raise NotImplementedError("Implement find_duplicates()")
 
 
 def jaccard_similarity(a: set, b: set) -> float:
@@ -421,7 +464,11 @@ def jaccard_similarity(a: set, b: set) -> float:
         >>> jaccard_similarity(set(), set())
         0.0
     """
-    raise NotImplementedError("Implement jaccard_similarity()")
+    try:
+        return len(a & b) / len(a | b)
+    except ZeroDivisionError:
+        return 0.0
+    # raise NotImplementedError("Implement jaccard_similarity()")
 
 
 # ── Part 4: Higher-order functions ────────────────────────────────────────────
