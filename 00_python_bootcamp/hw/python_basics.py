@@ -449,7 +449,11 @@ def find_duplicates(items: list) -> set:
             seen.add(i)
     return dupes
     # raise NotImplementedError("Implement find_duplicates()")
-
+    """
+    Ethan's Notes:
+    make two sets, seen and dupes, iterate through list, if element in seen, add to dupes
+    otherwise add to seen
+    """
 
 def jaccard_similarity(a: set, b: set) -> float:
     """Return |A intersection B| / |A union B|.
@@ -469,8 +473,16 @@ def jaccard_similarity(a: set, b: set) -> float:
     except ZeroDivisionError:
         return 0.0
     # raise NotImplementedError("Implement jaccard_similarity()")
+    """
+    Ethan's Notes:
+    union ( | ) combines all unique elements from both sets, so 123 and 345 is 12345 (no dupe 3)
+    intersection ( & ) only elements in both sets, so 123 and 345 is 3
+    """
 
-
+"""
+Ethan's Section 1.3 Set Notes:
+    idk it's short
+"""
 # ── Part 4: Higher-order functions ────────────────────────────────────────────
 
 
@@ -483,8 +495,13 @@ def apply_twice(f: Callable, x: object) -> object:
         >>> apply_twice(str.upper, 'hello')
         'HELLO'
     """
-    raise NotImplementedError("Implement apply_twice()")
-
+    return f(f(x))
+    # raise NotImplementedError("Implement apply_twice()")
+    """
+    Ethan's Notes
+    kinda recursion? just have call a function and then call same function with that
+    other call as its argument
+    """
 
 def make_multiplier(n: float) -> Callable[[float], float]:
     """Return a function that multiplies its argument by n.
@@ -499,7 +516,21 @@ def make_multiplier(n: float) -> Callable[[float], float]:
         >>> triple(4)
         12.0
     """
-    raise NotImplementedError("Implement make_multiplier()")
+    return lambda x: x * n
+    # raise NotImplementedError("Implement make_multiplier()")
+    """
+    Ethan's Notes:
+    lambda kinda makes a temp function that can take in arguments
+    so lambda x: x * n means if you assign the output of make_multiplier to a variable you will
+        assign the lambda function to that variable
+    so that means if you call that variable with an argument
+    that argument will be the value of x
+    and then the function already has the value of n from when it was made
+    so test = lambda x: x * n
+    where we said n is 5
+    then i do test(3)
+    i get 15
+    """
 
 
 def pipeline(*funcs: Callable) -> Callable:
@@ -516,7 +547,20 @@ def pipeline(*funcs: Callable) -> Callable:
         >>> pipeline()(42)
         42
     """
-    raise NotImplementedError("Implement pipeline()")
+    def pipeline_helper(a):
+        result = a
+        for f in funcs:
+            result = f(result)
+        return result
+    return pipeline_helper
+    # raise NotImplementedError("Implement pipeline()")
+    """
+    Ethan's Notes:
+    if the call is pipeline(...)(a) then we call helper and pass a and set that to result
+    so then if there are no funcs we return that result anyway
+    but otherwise we then go through each function in funcs and set result to its output
+        when passed result
+    """
 
 
 def memoize(f: Callable) -> Callable:
@@ -539,9 +583,29 @@ def memoize(f: Callable) -> Callable:
         >>> cached(4)   # should not increment call_count
         16
     """
-    raise NotImplementedError("Implement memoize()")
+    cache = {}
 
+    def memo_helper(*a):
+        if a not in cache:
+            cache[a] = f(*a)
+        return cache[a]
 
+    return memo_helper
+    # raise NotImplementedError("Implement memoize()")
+    """
+    Ethan's Notes:
+    basically because when we do cached = memoize(tracked) python needs to keep tracked in memory
+    and because that's being run through the inner memo_helper, it also needs to keep cache dict
+        in memory
+    so it doesn't actually reset the dict when we run it again since it's calling through that inner
+        function and not actually the outer one
+    """
+
+"""
+Ethan's Section 1.4 Higher-order Functions Notes:
+    this one was an actual challenge, mostly new implementations of concepts i already knew
+    probably worth looking over again at some point
+"""
 # ── Part 5: Classes ───────────────────────────────────────────────────────────
 
 
@@ -557,26 +621,47 @@ class Student:
 
     def average(self) -> float:
         """Return the mean of all grades. Returns 0.0 if grades is empty."""
-        raise NotImplementedError("Implement Student.average()")
+        if not self.grades:
+            return 0.0
+        return sum(self.grades) / len(self.grades)
+        # raise NotImplementedError("Implement Student.average()")
 
     def highest(self) -> float:
         """Return the highest grade. Returns 0.0 if grades is empty."""
-        raise NotImplementedError("Implement Student.highest()")
+        if not self.grades:
+            return 0.0
+        return max(self.grades)
+        # raise NotImplementedError("Implement Student.highest()")
 
     def letter_grade(self) -> str:
         """Return the letter grade for this student's average.
 
         Boundaries: A >= 90, B >= 80, C >= 70, D >= 60, F otherwise.
         """
-        raise NotImplementedError("Implement Student.letter_grade()")
+        gpa = self.average()
+        if gpa >= 90:
+            return "A"
+        elif gpa >= 80:
+            return "B"
+        elif gpa >= 70:
+            return "C"
+        elif gpa >= 60:
+            return "D"
+        else:
+            return "F"
+        # elif check_if_ramaz_student(self):
+            # return "Inflated grades: 10000000"
+        # raise NotImplementedError("Implement Student.letter_grade()")
 
     def __repr__(self) -> str:
         """Return a string like: Student('Alice', avg=88.5)"""
-        raise NotImplementedError("Implement Student.__repr__()")
+        return f"Student('{self.name}', avg={self.average()})"
+        # raise NotImplementedError("Implement Student.__repr__()")
 
     def __lt__(self, other: "Student") -> bool:
         """Compare students by average grade (enables sorted() and min/max)."""
-        raise NotImplementedError("Implement Student.__lt__()")
+        return self.average() < other.average()
+        # raise NotImplementedError("Implement Student.__lt__()")
 
 
 class Gradebook:
@@ -590,12 +675,21 @@ class Gradebook:
 
         Raises ValueError if a student with the same name already exists.
         """
-        raise NotImplementedError("Implement Gradebook.add_student()")
+        if student.name in self.students:
+            raise ValueError
+        self.students[student.name] = student
+        # raise NotImplementedError("Implement Gradebook.add_student()")
 
     def top_students(self, n: int) -> list[Student]:
         """Return the n students with the highest averages, in descending order."""
-        raise NotImplementedError("Implement Gradebook.top_students()")
+        leaderboard = sorted(self.students.items(), key = lambda item: item[1], reverse=True)
+        return [leaderboard[i][1] for i in range(n)]
+        # raise NotImplementedError("Implement Gradebook.top_students()")
 
     def class_average(self) -> float:
         """Return the mean of all student averages. Returns 0.0 if empty."""
-        raise NotImplementedError("Implement Gradebook.class_average()")
+        if not self.students:
+            return 0.0
+        all_gpas = [gpa for avg in self.students.values() for gpa in avg.grades]
+        return sum(all_gpas) / len(all_gpas)
+        # raise NotImplementedError("Implement Gradebook.class_average()")
