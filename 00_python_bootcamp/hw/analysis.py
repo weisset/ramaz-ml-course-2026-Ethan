@@ -33,7 +33,17 @@ def load_songs(path: Path) -> pd.DataFrame:
         >>> df.dtypes["year"]
         dtype('int64')
     """
-    raise NotImplementedError("Implement load_songs()")
+    df = pd.read_csv(path)
+    df = df.astype(
+        {
+            "year": "int64",
+            "weeks_on_chart": "int64",
+            "peak_position": "int64",
+            "streams_millions": "float64"
+        }
+    )
+    return df
+    # raise NotImplementedError("Implement load_songs()")
 
 
 def top_charting_songs(df: pd.DataFrame, n: int = 10) -> pd.DataFrame:
@@ -53,7 +63,9 @@ def top_charting_songs(df: pd.DataFrame, n: int = 10) -> pd.DataFrame:
         >>> top["streams_millions"].is_monotonic_decreasing
         True
     """
-    raise NotImplementedError("Implement top_charting_songs()")
+    sorted_df = df.sort_values(by='streams_millions', ascending=False)
+    return sorted_df.head(n)
+    # raise NotImplementedError("Implement top_charting_songs()")
 
 
 def avg_weeks_by_genre(df: pd.DataFrame) -> dict[str, float]:
@@ -70,7 +82,9 @@ def avg_weeks_by_genre(df: pd.DataFrame) -> dict[str, float]:
         >>> isinstance(avgs, dict)
         True
     """
-    raise NotImplementedError("Implement avg_weeks_by_genre()")
+
+    return df.groupby('genre')['weeks_on_chart'].mean().to_dict() # type: ignore
+    # raise NotImplementedError("Implement avg_weeks_by_genre()")
 
 
 def most_streamed_artist(df: pd.DataFrame) -> str:
@@ -89,7 +103,8 @@ def most_streamed_artist(df: pd.DataFrame) -> str:
         >>> isinstance(artist, str)
         True
     """
-    raise NotImplementedError("Implement most_streamed_artist()")
+    return str(df.groupby('artist')['streams_millions'].sum().idxmax())
+    # raise NotImplementedError("Implement most_streamed_artist()")
 
 
 def hits_per_year(df: pd.DataFrame, max_position: int = 10) -> dict[int, int]:
@@ -109,7 +124,9 @@ def hits_per_year(df: pd.DataFrame, max_position: int = 10) -> dict[int, int]:
         >>> all(isinstance(k, int) for k in hits.keys())
         True
     """
-    raise NotImplementedError("Implement hits_per_year()")
+    filtered_df = df[df['peak_position'] <= max_position]
+    return filtered_df.groupby('year')['peak_position'].count().to_dict() # type: ignore
+    # raise NotImplementedError("Implement hits_per_year()")
 
 
 # ── Main: print results for writeup.md ────────────────────────────────────────
