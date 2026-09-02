@@ -43,17 +43,7 @@ def load_songs(path: Path) -> list[dict]:
         >>> isinstance(songs[0]["year"], int)
         True
     """
-    df = pd.read_csv(path)
-    df = df.astype(
-        {
-            "year": "int64",
-            "weeks_on_chart": "int64",
-            "peak_position": "int64",
-            "streams_millions": "float64"
-        }
-    )
-    return df
-    # raise NotImplementedError("Implement load_songs()")
+    raise NotImplementedError("Implement load_songs()")
 
 
 class SongRanker:
@@ -81,14 +71,28 @@ class SongRanker:
             A list of the n songs with the highest score(), sorted
             highest-first. Ties may break in any order.
 
-    Example:
-        >>> top = top_charting_songs(df, n=3)
-        >>> len(top)
-        3
-        >>> top["streams_millions"].is_monotonic_decreasing
-        True
-    """
-    raise NotImplementedError("Implement top_charting_songs()")
+        Example:
+            >>> top = StreamsRanker().rank(songs, n=3)
+            >>> len(top)
+            3
+            >>> top[0]["streams_millions"] >= top[1]["streams_millions"]
+            True
+        """
+        raise NotImplementedError("Implement SongRanker.rank()")
+
+
+class StreamsRanker(SongRanker):
+    """Ranks songs by total streams_millions."""
+
+    def score(self, song: dict) -> float:
+        raise NotImplementedError("Implement StreamsRanker.score()")
+
+
+class LongevityRanker(SongRanker):
+    """Ranks songs by weeks_on_chart (how long they stuck around)."""
+
+    def score(self, song: dict) -> float:
+        raise NotImplementedError("Implement LongevityRanker.score()")
 
 
 def avg_weeks_by_genre(songs: list[dict]) -> dict[str, float]:
@@ -107,9 +111,7 @@ def avg_weeks_by_genre(songs: list[dict]) -> dict[str, float]:
         >>> all(isinstance(v, float) for v in avgs.values())
         True
     """
-
-    return df.groupby('genre')['weeks_on_chart'].mean().to_dict() # type: ignore
-    # raise NotImplementedError("Implement avg_weeks_by_genre()")
+    raise NotImplementedError("Implement avg_weeks_by_genre()")
 
 
 def most_streamed_artist(songs: list[dict]) -> str:
@@ -128,8 +130,7 @@ def most_streamed_artist(songs: list[dict]) -> str:
         >>> isinstance(artist, str)
         True
     """
-    return str(df.groupby('artist')['streams_millions'].sum().idxmax())
-    # raise NotImplementedError("Implement most_streamed_artist()")
+    raise NotImplementedError("Implement most_streamed_artist()")
 
 
 def hits_per_year(songs: list[dict], max_position: int = 10) -> dict[int, int]:
@@ -152,9 +153,7 @@ def hits_per_year(songs: list[dict], max_position: int = 10) -> dict[int, int]:
         >>> all(isinstance(k, int) for k in hits.keys())
         True
     """
-    filtered_df = df[df['peak_position'] <= max_position]
-    return filtered_df.groupby('year')['peak_position'].count().to_dict() # type: ignore
-    # raise NotImplementedError("Implement hits_per_year()")
+    raise NotImplementedError("Implement hits_per_year()")
 
 
 # ── Main: print results for writeup.md ────────────────────────────────────────
