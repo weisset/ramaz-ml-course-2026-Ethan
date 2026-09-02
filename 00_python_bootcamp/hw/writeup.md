@@ -5,13 +5,14 @@ below. Replace each `[your answer here]` with your response.
 
 - Questions 1–3 are factual. One or two sentences is enough.
 - Question 4 asks you to reflect on something that surprised you.
-- Question 5 asks you to connect what you implemented in Part 1 to what pandas is doing.
+- Question 5 asks you to connect what you implemented in Part 1 to the two new tools from Part 2.
 
 ---
 
 ## Question 1 (2 pts)
 
-**Which genre averaged the most weeks on the Billboard chart?**
+**Which genre averaged the most weeks on the Billboard chart, and how many
+songs is that average computed from?**
 
 [your answer here]
 
@@ -49,17 +50,21 @@ you assumed going in, or that is more interesting than you expected. Explain:
 
 ## Question 5 (5 pts)
 
-In Part 1 you implemented `group_by` from scratch using only Python dicts and lists.
-Pandas' `groupby()` does something conceptually similar, but at a much larger scale.
+In Part 1 you implemented `count_occurrences` from scratch using only a plain Python
+dict. `collections.Counter`, which you used in Part 2, does the same thing but with
+extra conveniences built in.
 
 Answer both parts:
 
-**a)** What data structure do you think `groupby` uses internally to organize the rows?
-Walk through how you think it works step by step, drawing on your own `group_by`
-implementation.
+**a)** Walk through, step by step, how you accumulated a running total per genre/artist
+in `avg_weeks_by_genre` and `most_streamed_artist`, and how you determined the maximum
+in `most_streamed_artist`. Would `collections.Counter` have made any part of this
+easier, and if so, which part (drawing on how you'd extend your own `count_occurrences`
+to do the same thing)?
 
-**b)** When you call `df.groupby("genre")["weeks_on_chart"].mean()`, what is pandas
-doing? Describe each step — how the data gets grouped, and how the mean is computed —
-in your own words.
+**b)** `StreamsRanker` and `LongevityRanker` both subclass `SongRanker` and share its
+`rank` method, overriding only `score`. If they did **not** share a common base class —
+if you had written two separate, unrelated classes instead — what code would you have
+had to duplicate? What does inheritance buy you here?
 
 [your answer here]
