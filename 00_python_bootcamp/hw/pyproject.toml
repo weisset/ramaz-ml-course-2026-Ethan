@@ -2,7 +2,7 @@
 name = "hw00-python-bootcamp"
 version = "0.1.0"
 requires-python = ">=3.11"
-dependencies = ["pandas>=2.0"]
+dependencies = []
 
 [dependency-groups]
 dev = [
@@ -29,7 +29,7 @@ markers = [
     "sets: set operations",
     "hof: higher-order functions",
     "classes: object-oriented programming",
-    "analysis: pandas data analysis",
+    "songs: song-dataset aggregation & ranking (file I/O, Counter, ranking classes)",
 ]
 addopts = "-v --tb=short --strict-markers"
 timeout = 30

@@ -81,14 +81,28 @@ class SongRanker:
             A list of the n songs with the highest score(), sorted
             highest-first. Ties may break in any order.
 
-    Example:
-        >>> top = top_charting_songs(df, n=3)
-        >>> len(top)
-        3
-        >>> top["streams_millions"].is_monotonic_decreasing
-        True
-    """
-    raise NotImplementedError("Implement top_charting_songs()")
+        Example:
+            >>> top = StreamsRanker().rank(songs, n=3)
+            >>> len(top)
+            3
+            >>> top[0]["streams_millions"] >= top[1]["streams_millions"]
+            True
+        """
+        raise NotImplementedError("Implement SongRanker.rank()")
+
+
+class StreamsRanker(SongRanker):
+    """Ranks songs by total streams_millions."""
+
+    def score(self, song: dict) -> float:
+        raise NotImplementedError("Implement StreamsRanker.score()")
+
+
+class LongevityRanker(SongRanker):
+    """Ranks songs by weeks_on_chart (how long they stuck around)."""
+
+    def score(self, song: dict) -> float:
+        raise NotImplementedError("Implement LongevityRanker.score()")
 
 
 def avg_weeks_by_genre(songs: list[dict]) -> dict[str, float]:

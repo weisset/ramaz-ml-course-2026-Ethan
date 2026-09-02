@@ -10,8 +10,8 @@ Examples:
     uv run python score.py sets                   # only Part 3 (Sets)
     uv run python score.py hof                    # only Part 4 (Higher-order functions)
     uv run python score.py classes                # only Part 5 (Classes)
-    uv run python score.py analysis               # only Part 6 (Analysis)
-    uv run python score.py --zip                  # build hw00_submission.zip for Gradescope
+    uv run python score.py songs                  # only Part 6 (Songs)
+    uv run python score.py --zip                  # build hw00_submission.zip for Drive upload
     uv run python score.py --gradescope <path>    # write Gradescope results.json
 """
 
@@ -52,8 +52,8 @@ POINTS: dict[str, int] = {
     "TestGradebook": 5,
     # Part 6: Analysis (17 pts)
     "TestLoadSongs": 2,
-    "TestTopChartingSongs": 3,
-    "TestAvgWeeksByGenre": 4,
+    "TestSongRanker": 4,
+    "TestAvgWeeksByGenre": 3,
     "TestMostStreamedArtist": 4,
     "TestHitsPerYear": 4,
 }
@@ -97,13 +97,26 @@ SECTIONS: list[tuple[str, list[str]]] = [
         "Part 6: Analysis",
         [
             "TestLoadSongs",
-            "TestTopChartingSongs",
+            "TestSongRanker",
             "TestAvgWeeksByGenre",
             "TestMostStreamedArtist",
             "TestHitsPerYear",
         ],
     ),
 ]
+
+WRITEUP_POINTS = 15
+
+# Final grade weighting: raw autograded points scale to 90% of the grade and
+# the writeup to 10%, regardless of what the raw point totals sum to.
+AUTOGRADED_WEIGHT = 90
+WRITEUP_WEIGHT = 10
+
+
+def weighted_autograded(earned: int, possible: int) -> float:
+    """Scale raw autograded points to the 90-point grade weight."""
+    return round(AUTOGRADED_WEIGHT * earned / possible, 1) if possible else 0.0
+
 
 REPORT_FILE = Path(".report.json")
 
@@ -124,7 +137,7 @@ def build_zip() -> None:
         for f in SUBMISSION_FILES:
             zf.write(f)
     print(f"Created {ZIP_NAME} containing: {', '.join(SUBMISSION_FILES)}")
-    print("Upload this file to Gradescope (HW00).")
+    print("Rename it to lastname_firstname_hw00.zip and upload it to the HW00 Drive folder.")
 
 
 def run_pytest(marker_filter: str | None = None) -> None:
@@ -210,7 +223,12 @@ def print_score(by_class: dict[str, dict]) -> None:
 
     print("=" * 50)
     print(f"  TOTAL SCORE (autograded):  {total_earned} / {total_possible}")
-    print("  Note: writeup.md is graded separately (up to 15 pts).")
+    weighted = weighted_autograded(total_earned, total_possible)
+    print(f"  Weighted (90% of grade):   {weighted} / {AUTOGRADED_WEIGHT}")
+    print(
+        f"  Note: writeup.md is graded separately "
+        f"(raw {WRITEUP_POINTS} pts, worth {WRITEUP_WEIGHT}% of the grade)."
+    )
     print()
 
 
@@ -253,13 +271,22 @@ def write_gradescope_results(by_class: dict[str, dict], output_path: str) -> Non
                 }
             )
 
+    weighted = weighted_autograded(total, autograded_total)
     results = {
-        "score": total,
-        "output": f"Autograded score: {total}/{autograded_total}  (writeup graded separately)",
+        "score": weighted,
+        "output": (
+            f"Raw autograded score: {total}/{autograded_total}\n"
+            f"Scaled to {AUTOGRADED_WEIGHT}% of the grade: "
+            f"{AUTOGRADED_WEIGHT} x ({total}/{autograded_total}) = "
+            f"{weighted}/{AUTOGRADED_WEIGHT}\n"
+            f"(writeup graded separately, worth {WRITEUP_WEIGHT}% of the grade)"
+        ),
         "tests": tests,
     }
     Path(output_path).write_text(json.dumps(results, indent=2))
-    print(f"Wrote {output_path}  ({total}/{autograded_total})")
+    print(
+        f"Wrote {output_path}  (raw {total}/{autograded_total} -> {weighted}/{AUTOGRADED_WEIGHT})"
+    )
 
 
 def main() -> None:
