@@ -5,9 +5,10 @@ own folder (`00_python_bootcamp/`, `01_linear_algebra/`, …). Inside each modul
 `hw/` is the assignment and (where applicable) `exercises/` is the written
 problem set.
 
-You'll work in **GitHub Codespaces** (recommended — browser-based VS Code, no
-local installation needed) or on your **local machine** (see below), and submit
-on **Gradescope**.
+You'll work on your **local machine** (recommended) or, if you prefer, in
+**GitHub Codespaces** (browser-based VS Code, no local installation needed —
+see below), and submit each assignment as a zip uploaded to that assignment's
+**Google Drive** folder.
 
 ---
 
@@ -21,24 +22,35 @@ Click the **Fork** button in the top-right of this repo's GitHub page. This
 creates your own copy under your GitHub account. All your work lives on **your
 fork** — the upstream repo is read-only to you.
 
-### 2. Launch a Codespace from your fork
+### 2. Clone your fork
 
-On your fork's page:
+```bash
+git clone https://github.com/YOUR-USERNAME/ramaz-ml-course-2026-student.git
+cd ramaz-ml-course-2026-student
+```
 
-1. Click the green **`< > Code`** button
-2. Switch to the **Codespaces** tab
-3. Click **Create codespace on main**
+### 3. Install Python and `uv`
 
-Wait 1–2 minutes for the environment to build. The devcontainer automatically
-installs Python 3.11, `uv`, and all dependencies for every released assignment.
-When it finishes you'll be in a VS Code editor in your browser.
+- **Python 3.11+**, if you don't already have it:
+  [python.org/downloads](https://www.python.org/downloads/).
+- **`uv`** (the Python package manager the course uses):
+  ```bash
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+  On Windows, see
+  [docs.astral.sh/uv/getting-started/installation](https://docs.astral.sh/uv/getting-started/installation/).
 
-### 3. Open the terminal
+If you get stuck on installation — a PATH issue, a Windows-vs-Mac command
+difference, a confusing terminal error — it's completely fine to use an AI
+coding assistant (Claude Code, ChatGPT, whatever you have) to help you get
+your machine set up. That's just tooling, not the assignment. Once you're
+into the actual `hw/` files, stick to what's expected in the writeup.
 
-In VS Code: **View → Terminal** (or press `` Ctrl+` `` / `` Cmd+` ``). All the
-commands in each assignment's README go in this terminal.
+### 4. Open the folder in your editor
 
-### 4. Verify the setup
+Use VS Code, PyCharm, or whatever you like, and work from its terminal.
+
+### 5. Verify the setup
 
 Navigate into the first assignment folder and run the tests:
 
@@ -53,31 +65,24 @@ you haven't implemented anything yet.
 
 ---
 
-## Alternative: working on your local machine
+## Alternative: GitHub Codespaces
 
-If you'd rather use your own computer, the workflow is the same but with a
-one-time local setup.
+If you'd rather not install anything locally, you can work entirely in the
+browser instead.
 
 1. **Fork** the repo (as in step 1 above).
-2. **Clone your fork:**
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/ramaz-ml-course-2026-student.git
-   cd ramaz-ml-course-2026-student
-   ```
-3. **Install Python 3.11+** if you don't already have it:
-   [python.org/downloads](https://www.python.org/downloads/).
-4. **Install `uv`** (the Python package manager the course uses):
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-   On Windows, see
-   [docs.astral.sh/uv/getting-started/installation](https://docs.astral.sh/uv/getting-started/installation/).
-5. **Open the folder in your editor** (VS Code, PyCharm, whatever you like) and
-   work from its terminal. The per-assignment `uv run pytest` and `uv run
-   python score.py` commands work identically to Codespaces.
+2. On your fork's page, click the green **`< > Code`** button, switch to the
+   **Codespaces** tab, and click **Create codespace on main**.
+3. Wait 1–2 minutes for the environment to build. The devcontainer
+   automatically installs Python 3.11, `uv`, and all dependencies for every
+   released assignment. When it finishes you'll be in a VS Code editor in your
+   browser, with a terminal (**View → Terminal**, or `` Ctrl+` `` / `` Cmd+` ``).
+4. Verify the setup the same way as above (`cd 00_python_bootcamp/hw && uv run
+   pytest`).
 
-Everything else in this README (Sync fork, the two-submission Gradescope flow,
-Source Control for saving work) applies the same way locally.
+Everything else in this README (getting new assignments, submitting, saving
+your work) works the same way in Codespaces, with one difference noted below
+for saving work, and one for Codespaces' 30-day inactivity limit.
 
 ---
 
@@ -87,7 +92,7 @@ Two steps:
 
 1. **On GitHub** (in the browser): on your fork's page, click **Sync fork →
    Update branch**. This pulls the teacher's new commits into your fork.
-2. **In your terminal** (Codespace or local), run:
+2. **In your terminal** (local or Codespace), run:
    ```bash
    bash setup.sh
    ```
@@ -96,49 +101,46 @@ Two steps:
 
 ---
 
-## Submitting on Gradescope
+## Submitting
 
-You're already enrolled in the Gradescope course. Log in at
-[gradescope.com](https://www.gradescope.com) — the course is on your
-dashboard, with every assignment listed.
+Each assignment submits the same way: build a zip, rename it, and upload it to
+that assignment's Drive folder.
 
-**Most assignments have two separate Gradescope submissions:**
+From the assignment's `hw/` directory:
 
-| Submission | What you upload |
-|---|---|
-| **HWXX — Code** | A `.zip` of your `hw/` folder |
-| **HWXX — Writeup** | Your completed `writeup.md` directly |
+```bash
+uv run python score.py --zip
+```
 
-To create the `.zip` of your `hw/` folder from inside Codespaces:
+This creates `hwXX_submission.zip` containing your code and your completed
+`writeup.md` — everything needed for grading, in one file. Rename it to
+`lastname_firstname_hwXX.zip` and upload it to that assignment's Drive folder,
+linked from the assignment's own `hw/README.md`.
 
-1. In the file explorer sidebar, **right-click the `hw/` folder**
-2. Choose **Download…**
-3. Codespaces packages the folder as a `.zip` and saves it to your computer
-
-Upload that `.zip` to the **Code** submission on Gradescope. Upload your
-`writeup.md` directly to the **Writeup** submission.
-
-After you submit the code, Gradescope runs the autograder and shows your score
-within a couple of minutes. You can resubmit as many times as you like before
-the deadline — only the last submission counts.
+You can run `score.py --zip` and re-upload as many times as you like before
+the deadline — only your last upload counts. Run `uv run pytest` or `uv run
+python score.py` (no `--zip`) anytime to check your progress without
+submitting.
 
 ---
 
 ## Saving your work
 
-**Important:** your Codespace will be deleted if inactive for 30 days. Commit
-and push your work to GitHub regularly to keep it permanently.
+Commit and push your work to GitHub regularly — don't wait until you're done
+with an assignment.
 
-You can do this entirely from the VS Code sidebar — no terminal needed:
+```bash
+git add .
+git commit -m "complete part 1"
+git push
+```
 
-1. Click the **Source Control** icon in the left sidebar (it looks like a
-   branching tree)
-2. Click **+** next to each changed file to stage it
-3. Type a short commit message (e.g. `"complete part 1"`)
-4. Click **Commit**, then **Sync Changes**
-
-Your work is now saved to your GitHub fork. Get into the habit of doing this
-whenever you finish a work session.
+**If you're using Codespaces:** you can do this from the VS Code sidebar
+instead of the terminal — click the **Source Control** icon (looks like a
+branching tree), stage changes with **+**, write a commit message, then
+**Commit** and **Sync Changes**. Also note that your Codespace is deleted
+after 30 days of inactivity, so pushing regularly is what actually protects
+your work.
 
 ---
 
@@ -152,14 +154,18 @@ assignment content.
 
 ## Troubleshooting
 
-- **"My Codespace won't open / is stuck building"** — wait 2–3 minutes the first
-  time. If it still fails, try **Codespaces → Delete** on the broken Codespace,
-  then create a new one.
-- **"`uv` is not found"** — close the terminal and open a new one (the install
-  added `uv` to your PATH; new terminals pick it up).
-- **"Tests can't find a module / `ModuleNotFoundError`"** — run `uv sync` in the
-  affected `hw/` folder.
-- **"I synced the fork but I don't see the new assignment in Codespaces"** —
-  run `bash setup.sh` from the repo root in your Codespace terminal.
+- **"`uv` is not found"** — close your terminal and open a new one (the
+  install added `uv` to your PATH; new terminals pick it up).
+- **"Tests can't find a module / `ModuleNotFoundError`"** — run `uv sync` in
+  the affected `hw/` folder.
+- **"I synced the fork but don't see the new assignment"** — run `bash
+  setup.sh` from the repo root.
+- **Stuck on a local install issue** — see the note in First-time setup above;
+  an AI assistant can help you debug your environment.
+
+**If you're using Codespaces:**
+- **"My Codespace won't open / is stuck building"** — wait 2–3 minutes the
+  first time. If it still fails, try **Codespaces → Delete** on the broken
+  Codespace, then create a new one.
 
 For anything else, ask the teacher in class or via Schoology.
