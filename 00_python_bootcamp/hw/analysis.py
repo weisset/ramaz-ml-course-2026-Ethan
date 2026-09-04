@@ -43,7 +43,17 @@ def load_songs(path: Path) -> list[dict]:
         >>> isinstance(songs[0]["year"], int)
         True
     """
-    raise NotImplementedError("Implement load_songs()")
+    with path.open(mode="r", encoding="utf-8") as songs_csv:
+        r_songs = csv.DictReader(songs_csv)
+        return [{
+                **song,
+                'year':int(song['year']),
+                'weeks_on_chart':int(song['weeks_on_chart']),
+                'peak_position':int(song['peak_position']),
+                'streams_millions':float(song['streams_millions'])
+            }
+            for song in r_songs]
+    # raise NotImplementedError("Implement load_songs()")
 
 
 class SongRanker:
@@ -78,21 +88,24 @@ class SongRanker:
             >>> top[0]["streams_millions"] >= top[1]["streams_millions"]
             True
         """
-        raise NotImplementedError("Implement SongRanker.rank()")
+        return sorted(songs, key=lambda song: self.score(song), reverse=True)[:n]
+        # raise NotImplementedError("Implement SongRanker.rank()")
 
 
 class StreamsRanker(SongRanker):
     """Ranks songs by total streams_millions."""
 
     def score(self, song: dict) -> float:
-        raise NotImplementedError("Implement StreamsRanker.score()")
+        return song['streams_millions']
+        # raise NotImplementedError("Implement StreamsRanker.score()")
 
 
 class LongevityRanker(SongRanker):
     """Ranks songs by weeks_on_chart (how long they stuck around)."""
 
     def score(self, song: dict) -> float:
-        raise NotImplementedError("Implement LongevityRanker.score()")
+        return song['weeks_on_chart']
+        # raise NotImplementedError("Implement LongevityRanker.score()")
 
 
 def avg_weeks_by_genre(songs: list[dict]) -> dict[str, float]:
@@ -111,7 +124,18 @@ def avg_weeks_by_genre(songs: list[dict]) -> dict[str, float]:
         >>> all(isinstance(v, float) for v in avgs.values())
         True
     """
-    raise NotImplementedError("Implement avg_weeks_by_genre()")
+    genre_weeks = {}
+    genre_counts = {}
+    for song in songs:
+        genre = song['genre']
+        genre_weeks[genre] = genre_weeks.get(genre, 0) + song['weeks_on_chart']
+        genre_counts[genre] = genre_counts.get(genre, 0) + 1
+
+    for key in genre_weeks:
+        genre_weeks[key] /= genre_counts[key]
+
+    return genre_weeks
+    # raise NotImplementedError("Implement avg_weeks_by_genre()")
 
 
 def most_streamed_artist(songs: list[dict]) -> str:
@@ -130,7 +154,13 @@ def most_streamed_artist(songs: list[dict]) -> str:
         >>> isinstance(artist, str)
         True
     """
-    raise NotImplementedError("Implement most_streamed_artist()")
+    artist_streams = {}
+    for song in songs:
+        artist = song['artist']
+        artist_streams[artist] = artist_streams.get(artist, 0) + song['streams_millions']
+
+    return max(artist_streams, key=artist_streams.get) #type: ignore
+    # raise NotImplementedError("Implement most_streamed_artist()")
 
 
 def hits_per_year(songs: list[dict], max_position: int = 10) -> dict[int, int]:
@@ -153,7 +183,8 @@ def hits_per_year(songs: list[dict], max_position: int = 10) -> dict[int, int]:
         >>> all(isinstance(k, int) for k in hits.keys())
         True
     """
-    raise NotImplementedError("Implement hits_per_year()")
+    return Counter([song['year'] for song in songs if song['peak_position'] <= max_position])
+    # raise NotImplementedError("Implement hits_per_year()")
 
 
 # ── Main: print results for writeup.md ────────────────────────────────────────
