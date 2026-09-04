@@ -30,7 +30,7 @@ Taylor swift was the most streamed artist in the dataset with 6.56 billion strea
 
 **Which year had the most top-10 hits (songs that peaked at position 10 or better)?**
 
-2026 was the year that had the most top 10 hits with 26.
+2024 was the year that had the most top 10 hits with 26 hits.
 
 ---
 
@@ -67,6 +67,6 @@ to do the same thing)?
 if you had written two separate, unrelated classes instead — what code would you have
 had to duplicate? What does inheritance buy you here?
 
-a) I personally don't know what this groupby would use, but the first data structure that comes to mind for me would be a weird kind of heap, where the groups are parents and the children are the values (perhaps heaps of heaps). The idea is that the root is either representative of the dataframe as a whole or the specific group (such as genre), and then the children are the individual genres, and their children are the different rows that have that genre.
+a) First I made a dictionary that represented the total per genre/artist. I then iterated through the entire list of songs, and for each song I would use .get() to check if that genre/artist is already in the dictionary where the key is the genre/artist and value is the total. If the pair already existed I just added the value, if it didn't exist then I created it with a value of 0 and then added to the value. To get the maximum I used the max() function on my dictionary artist_streams which has keys that are the artists' names and values that represent the total streams; I set the key parameter in max() to artist_streams.get. I don't think collections.Counter would have made any improvement for me with these two function definitions because I would only use it for averaging, and since I'm already iterating through every song it's more efficient (as far as I know) to just manually update a separate counter dictionary.
 
-b) I kind of cheated by learning this when I was looking up how groupby works, it's something like "split apply combine". Pandas splits up the rows by their genre into mini-dataframes of each genre, applies the mean calculation to the weeks_on_chart values, and then recombines all the mini-dataframes back into one big series with the genres as indices and the values as the values.
+b) If StreamsRanker and LongevityRanker weren't both subclasses of SongRanker they would each need to have their own rank method. Because they inherit the rank method instead, I don't need to rewrite the same exact code multiple times.
