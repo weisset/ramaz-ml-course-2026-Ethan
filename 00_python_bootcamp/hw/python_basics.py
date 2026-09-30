@@ -230,7 +230,7 @@ def sliding_window(items: list, size: int) -> list[list]:
     if size > len(items):
         return []
     return [
-        items[windowStart : size + windowStart] for windowStart in range(0, len(items) - size + 1)
+        items[windowStart : size + windowStart] for windowStart in range(len(items) - size + 1)
     ]
     """
     Ethan's Notes:
