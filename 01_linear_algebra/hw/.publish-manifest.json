@@ -1,0 +1,15 @@
+{
+  ".python-version": "49a506dd32096b010d75205acf3430c9ae6c40351888129499e5a5e487126c93",
+  "README.md": "263dcea390590d4f5b09be904cb053657ddb5f200d838a3fb315a052a3c5ca00",
+  "analysis.py": "d388d3b4ee3e466672ff61014de58b9682cc44c77bd8cee18df7178065ba663a",
+  "conftest.py": "5091cbe387c940f5189775a3de0a7dde347e2b509aa8547a0c80185715d309d2",
+  "exercises/01_linear_algebra_exercises.pdf": "cdd54fcc3ad4ffbdece67a20f4ffaf5b0dba8d00fe75f4acc65ac33e67d89991",
+  "linear_algebra.py": "4ef66d71fecc2ff367050eecbc8f51b4b8e3ff7acf85edbedf46aed6f6abce94",
+  "pyproject.toml": "ce8be78826e0cdd3afc8f82fab3e6c34583417d4bef2e91a019ba527be8a380f",
+  "score.py": "f5d7a0a32fbde4e7f1f6739f3669ed118d6b7705c4b9a017faf32820c3b08b6d",
+  "scoring.py": "4ba4490cc1b2dc786c148834a3c9575a9def052eb7465fe1927f7449b1985130",
+  "test_analysis.py": "a79f028fa6aeb3241fe7489e6b24bd978eba28f49c6ed6d3601edb833278ba63",
+  "test_linear_algebra.py": "fcbaf29fd865f341810840d248695b0da04a00dcc9df09714e536f6d5834a99a",
+  "uv.lock": "bf5bab546711b1980d68a2375d99059c66f2550fa82926db879c8e56a4e5bedc",
+  "writeup.md": "2986d15bc5f2f34a2542efb4c5315c5dea6b79512bf3681e9fb72a87f20da290"
+}
