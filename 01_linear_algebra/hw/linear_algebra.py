@@ -40,7 +40,8 @@ def vector_add(u: list[float], v: list[float]) -> list[float]:
         Think about how to iterate over two lists simultaneously, pairing their
         elements at each position.
     """
-    raise NotImplementedError("Implement vector_add()")
+    return [i+j for i, j in zip(u, v)]
+    # raise NotImplementedError("Implement vector_add()")
 
 
 def scalar_multiply(c: float, v: list[float]) -> list[float]:
@@ -61,7 +62,8 @@ def scalar_multiply(c: float, v: list[float]) -> list[float]:
         You know how to visit every element in a list. What would you do
         to each one?
     """
-    raise NotImplementedError("Implement scalar_multiply()")
+    return [c * i for i in v]
+    # raise NotImplementedError("Implement scalar_multiply()")
 
 
 def dot_product(u: list[float], v: list[float]) -> float:
@@ -85,7 +87,8 @@ def dot_product(u: list[float], v: list[float]) -> float:
         You already know how to pair elements from two lists. The dot product
         needs one more step: combine those products into a single number.
     """
-    raise NotImplementedError("Implement dot_product()")
+    return sum([i * j for i, j in zip(u, v)])
+    # raise NotImplementedError("Implement dot_product()")
 
 
 def vector_magnitude(v: list[float]) -> float:
@@ -107,7 +110,9 @@ def vector_magnitude(v: list[float]) -> float:
         Look at the formula in the docstring — it expresses magnitude in terms
         of an operation you've already implemented.
     """
-    raise NotImplementedError("Implement vector_magnitude()")
+    return math.hypot(*v)
+    # for knowledge purposes the answer is math.sqrt(sum(i**2 for i in v))
+    # raise NotImplementedError("Implement vector_magnitude()")
 
 
 def normalize_vector(v: list[float]) -> list[float]:
@@ -134,7 +139,9 @@ def normalize_vector(v: list[float]) -> list[float]:
         to be true about the magnitude before dividing, and what should happen
         if that condition fails.
     """
-    raise NotImplementedError("Implement normalize_vector()")
+    mag = 
+    return 
+    # raise NotImplementedError("Implement normalize_vector()")
 
 
 def matrix_add(A: list[list[float]], B: list[list[float]]) -> list[list[float]]:
