@@ -16,7 +16,11 @@ For each of the three transformations, describe in a sentence or two:
 - What changed about the arrow (size? angles? direction it points? proportions?).
 - What stayed the same.
 
-[your answer here]
+The rotation transformation changed the direction of the arrow and the angle to the x-axis, but the size and proportions stayed the same.
+
+The scaling transformation changed the size and proportions, but the direction of the arrow and the angle to the x-axis stayed the same.
+
+The shear transformation changed the size, proportions, and direction the arrow points, but the angle to the x-axis stayed the same.
 
 ---
 
@@ -33,7 +37,9 @@ figure and the printed matrices and arrow-tip positions:
   principle that $AB \neq BA$ in general. (Hint: in each
   composition, which transformation does the arrow experience first?)
 
-[your answer here]
+The differences are: R @ S has a greater magnitude (and components) than S @ R; R @ S appears "straight" while S @ R has awkward proportions.
+
+The order changes the outcome because the rotation transformation will change the positions of specific values, so if x is affected by row 1 in the scaling matrix, and only then rotated, a rotation first would mean that the value x is being transformed by a different row in the scaling matrix, because the scaling isn't uniform.
 
 ---
 
