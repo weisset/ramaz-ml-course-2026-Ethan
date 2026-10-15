@@ -482,12 +482,13 @@ def row_normalize(A: torch.Tensor) -> torch.Tensor:
         gives you a tensor of booleans) and raise ValueError.
         Do not use torch.nn.functional.normalize.
     """
-    vmap_func = torch.vmap(lambda v: v / torch.linalg.vector_norm(v), in_dims=0)
+    norms = torch.linalg.norm(A, dim=1, keepdim=True)
 
-    if (torch.linalg.vector_norm(A, dim=1) == 0).any():
+    if (norms == 0).any():
         raise ValueError
 
-    return vmap_func(A)
+    return A / norms
+    # vmap_func = torch.vmap(lambda v: v / torch.linalg.vector_norm(v), in_dims=0)
     # raise NotImplementedError("Implement row_normalize()")
 
 
@@ -522,4 +523,7 @@ def pairwise_distances(A: torch.Tensor) -> torch.Tensor:
         you still have to decide which axis each copy gets and how to collapse
         the result into distances. Do not use torch.cdist.
     """
-    raise NotImplementedError("Implement pairwise_distances()")
+    irows = A.unsqueeze(1)
+    jrows = A.unsqueeze(0)
+    return torch.sqrt(torch.sum((irows - jrows)**2, dim=2))
+    # raise NotImplementedError("Implement pairwise_distances()")
