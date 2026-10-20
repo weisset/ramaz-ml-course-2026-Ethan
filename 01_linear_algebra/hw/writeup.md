@@ -61,4 +61,7 @@ Using your own figure and printed output, explain:
   Support your answer with your two arrow-tip positions from Question 2,
   identifying which transformation acts first in each composition.
 
-[your answer here]
+geo description_
+nx2
+bc then columns are the variables
+ba!=ab_
