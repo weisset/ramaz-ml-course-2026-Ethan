@@ -61,7 +61,7 @@ Using your own figure and printed output, explain:
   Support your answer with your two arrow-tip positions from Question 2,
   identifying which transformation acts first in each composition.
 
-geo description_
-nx2
-bc then columns are the variables
-ba!=ab_
+The matrix in the scaling panel doubled the width of the arrow and halved the height of the arrow.
+The shape of the transformed points resulting from the expression W(X^T) would be a 2xN matrix. This works because typically to transform one point (p), that p would be a column vector, and we would do Wp. Because X represents each point as a row, it has to be transposed to allow us to input it into W because matrix multiplication has the rows of the first matrix act on the columns of the second matrix.
+
+Changing the order of two weight matrices can change the output because they both change the input values that the other matrix will use, they aren't independent of each other. Since applying two weight matrices is just doing ABp, it's just matrix multiplication, and so it is not commutative. with R@S (scale applied first, rotate second) the resulting arrow tip's coordinate was around (2.25, 5.25); S@R (rotate first, scale second) on the other hand resulted in a tip coordinate of about (2.1, 1.5).
