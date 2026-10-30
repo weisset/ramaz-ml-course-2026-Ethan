@@ -1,0 +1,13 @@
+{
+  ".python-version": "49a506dd32096b010d75205acf3430c9ae6c40351888129499e5a5e487126c93",
+  "README.md": "b41a4bd4a7b0134f3e688a9bfd904e6b86252a4ab0f3d185d621f9e9792e6fad",
+  "conftest.py": "809452ec000365a2de087653bf166b23ccb8883fc630febedd07f7a8fc8aa895",
+  "derivatives.py": "032c2402f7dad987f49e9b1e25f9195eb0146374d8ed9388cd9eea4f87597ca7",
+  "exercises/02_math_exercises.pdf": "ec3608a9e4f1ab24df28f5623f333bfcdddf4d975f6b66c2ad15e55b3e4ce26c",
+  "pyproject.toml": "277454f54a7e210ce3394e5dbc7f5079a7faa7b2ee7fba434e169fdb1db0c766",
+  "score.py": "5ad31db14adad34adedd436145cb1d4daecba69a854b637d803ce3732b2b0e55",
+  "scoring.py": "4ba4490cc1b2dc786c148834a3c9575a9def052eb7465fe1927f7449b1985130",
+  "test_derivatives.py": "1738bacd637df3c65fb1c224699a0d31d1b804ca1c7787d81fa1cd6973149a98",
+  "uv.lock": "c69182bfde5dbe64e3db6618b93a9d1cb07b42575c1d51a11269b33cc937cbe4",
+  "writeup.md": "acb001af2b77534b4ef2941ef599f407033180542e26d6985ce132beb72f2cc7"
+}

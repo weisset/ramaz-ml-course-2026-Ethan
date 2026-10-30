@@ -1,0 +1,45 @@
+[project]
+name = "hw02-calculus-gradient-descent"
+version = "0.1.0"
+requires-python = ">=3.11"
+# numpy is here only so torch stops emitting "UserWarning: Failed to initialize
+# NumPy" on every import - it was the first thing a student saw after uv sync,
+# and it reads like a broken environment. It is a torch interop shim, not
+# student-facing code, so the course's no-NumPy-in-student-code rule still
+# holds. Deliberately NOT silenced with a pytest filterwarnings entry instead:
+# a filter would also hide a genuine future numpy failure.
+dependencies = ["torch>=2.0", "numpy>=1.26"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-json-report>=1.5",
+    "pytest-timeout>=2.3",
+    "ruff>=0.4",
+    "ty>=0.0.1a0",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]
+markers = [
+    "manual: manual derivative functions, implemented by hand (45 pts)",
+    "autograd: torch.autograd functions (45 pts)",
+]
+addopts = "-v --tb=short --strict-markers"
+timeout = 30
