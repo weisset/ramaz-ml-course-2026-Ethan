@@ -45,7 +45,8 @@ def manual_gradient_quadratic(a: float, b: float, x_val: float) -> float:
         Apply the power rule to each term separately, then add.
         Recall: d/dx [c * x**n] = c * n * x**(n-1).
     """
-    raise NotImplementedError("Implement manual_gradient_quadratic()")
+    return 2 * a * x_val + b
+    # raise NotImplementedError("Implement manual_gradient_quadratic()")
 
 
 def manual_gradient_composite(x_val: float) -> float:
@@ -72,7 +73,8 @@ def manual_gradient_composite(x_val: float) -> float:
         function stops and the outer operation begins, then differentiate each
         with the power rule from the previous problem.
     """
-    raise NotImplementedError("Implement manual_gradient_composite()")
+    return 2*(x_val**3 + 2)*(3*x_val**2)
+    # raise NotImplementedError("Implement manual_gradient_composite()")
 
 
 def manual_partial_gradients(x_val: float, y_val: float) -> tuple[float, float]:
@@ -96,7 +98,8 @@ def manual_partial_gradients(x_val: float, y_val: float) -> tuple[float, float]:
         For df/dx: treat y as a constant and differentiate with respect to x.
         For df/dy: treat x as a constant and differentiate with respect to y.
     """
-    raise NotImplementedError("Implement manual_partial_gradients()")
+    return (2*x_val + 3*y_val, 3*x_val +4*y_val)
+    # raise NotImplementedError("Implement manual_partial_gradients()")
 
 
 # ── Part 2: Autograd ──────────────────────────────────────────────────────────
@@ -125,7 +128,11 @@ def autograd_gradient_quadratic(a: float, b: float, x_val: float) -> float:
         Python float, not a 0-dim tensor. See the autograd section of the
         lecture.
     """
-    raise NotImplementedError("Implement autograd_gradient_quadratic()")
+    x = torch.tensor([x_val], requires_grad = True)
+    f = a*x**2 + b*x
+    f.backward()
+    return (x.grad).item()
+    # raise NotImplementedError("Implement autograd_gradient_quadratic()")
 
 
 def autograd_gradient_composite(x_val: float) -> float:
@@ -144,7 +151,11 @@ def autograd_gradient_composite(x_val: float) -> float:
     Hint:
         Same pattern as autograd_gradient_quadratic — just define f differently.
     """
-    raise NotImplementedError("Implement autograd_gradient_composite()")
+    x = torch.tensor([x_val], requires_grad = True)
+    f = (x**3 + 2)**2
+    f.backward()
+    return (x.grad).item()
+    # raise NotImplementedError("Implement autograd_gradient_composite()")
 
 
 def autograd_partial_gradients(x_val: float, y_val: float) -> tuple[float, float]:
@@ -166,7 +177,12 @@ def autograd_partial_gradients(x_val: float, y_val: float) -> tuple[float, float
         scalar. Which tensors must be tracked, and where does each partial
         derivative end up?
     """
-    raise NotImplementedError("Implement autograd_partial_gradients()")
+    x = torch.tensor([x_val], requires_grad = True)
+    y = torch.tensor([y_val], requires_grad = True)
+    f = x**2 + 3*x*y + 2*y**2
+    f.backward()
+    return (x.grad.item(), y.grad.item())
+    # raise NotImplementedError("Implement autograd_partial_gradients()")
 
 
 # ── Comparison table (teacher-provided — do not modify) ───────────────────────
