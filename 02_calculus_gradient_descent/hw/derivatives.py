@@ -131,7 +131,7 @@ def autograd_gradient_quadratic(a: float, b: float, x_val: float) -> float:
     x = torch.tensor([x_val], requires_grad = True)
     f = a*x**2 + b*x
     f.backward()
-    return (x.grad).item()
+    return (x.grad).item() #type: ignore
     # raise NotImplementedError("Implement autograd_gradient_quadratic()")
 
 
@@ -154,7 +154,7 @@ def autograd_gradient_composite(x_val: float) -> float:
     x = torch.tensor([x_val], requires_grad = True)
     f = (x**3 + 2)**2
     f.backward()
-    return (x.grad).item()
+    return (x.grad).item() #type: ignore
     # raise NotImplementedError("Implement autograd_gradient_composite()")
 
 
@@ -181,7 +181,7 @@ def autograd_partial_gradients(x_val: float, y_val: float) -> tuple[float, float
     y = torch.tensor([y_val], requires_grad = True)
     f = x**2 + 3*x*y + 2*y**2
     f.backward()
-    return (x.grad.item(), y.grad.item())
+    return (x.grad.item(), y.grad.item()) #type: ignore
     # raise NotImplementedError("Implement autograd_partial_gradients()")
 
 

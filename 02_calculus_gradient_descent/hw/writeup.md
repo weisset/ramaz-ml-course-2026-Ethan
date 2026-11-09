@@ -27,7 +27,27 @@ Paste (or neatly transcribe) the comparison table printed by
   specific mistake the table *would* have caught (for example, in which rows
   the numbers would split apart if you forgot part of a derivative rule).
 
-[your answer here]
+function @ point                                   manual     autograd     |diff|
+---------------------------------------------------------------------------------
+quadratic   a=1, b=0, x=2                          4.0000       4.0000   0.00e+00
+quadratic   a=3, b=2, x=1                          8.0000       8.0000   0.00e+00
+quadratic   a=-2, b=5, x=1                         1.0000       1.0000   0.00e+00
+quadratic   a=0.5, b=-1, x=4                       3.0000       3.0000   0.00e+00
+composite   x=0                                    0.0000       0.0000   0.00e+00
+composite   x=1                                   18.0000      18.0000   0.00e+00
+composite   x=2                                  240.0000     240.0000   0.00e+00
+composite   x=-1                                   6.0000       6.0000   0.00e+00
+partial df/dx  (x,y)=(1,2)                         8.0000       8.0000   0.00e+00
+partial df/dy  (x,y)=(1,2)                        11.0000      11.0000   0.00e+00
+partial df/dx  (x,y)=(2,1)                         7.0000       7.0000   0.00e+00
+partial df/dy  (x,y)=(2,1)                        10.0000      10.0000   0.00e+00
+partial df/dx  (x,y)=(0,0)                         0.0000       0.0000   0.00e+00
+partial df/dy  (x,y)=(0,0)                         0.0000       0.0000   0.00e+00
+partial df/dx  (x,y)=(-1,3)                        7.0000       7.0000   0.00e+00
+partial df/dy  (x,y)=(-1,3)                        9.0000       9.0000   0.00e+00
+---------------------------------------------------------------------------------
+If every |diff| is ~0, your manual rules and autograd agree.  
+They all agree.
 
 ---
 
@@ -49,7 +69,16 @@ part (a) show up in that process: what operations get recorded as you build
 `f` from the input, and how the backward pass combines their derivatives to
 produce the gradient stored on your input tensor.
 
-[your answer here]
+Outer (v): $v(u)=u^2$
+Inner (u): $u(x)=x^3 + 2$
+
+$v'(u)=2u$
+$u'(x)=3x^2$
+
+$f'(x)=v'(u(x)) \cdot u'(x)=2u(x) \cdot 3x^2 = (2x^3 + 4)3x^2 = 6x^5 + 12x^2$
+
+
+
 
 ---
 
@@ -68,17 +97,17 @@ Does this error change the direction, the distance, or both? A different
 step is not automatically worse; explain what you can conclude from this
 calculation without running further steps.
 
-**c) Choosing a method (1 pt).** Suppose you want the gradient of a scalar
+~**c) Choosing a method (1 pt).** Suppose you want the gradient of a scalar
 function with $d$ inputs. Compare estimating each partial derivative using
-forward differences with computing the gradient using PyTorch autograd:
+forward differences with computing the gradient using PyTorch autograd:~
 
-- How many function evaluations would forward differences require if you
+- ~How many function evaluations would forward differences require if you
   reuse the value at the original input? How does autograd avoid repeating
-  that work separately for each input?
-- Which source of error does autograd avoid, and why are its results still
-  not perfectly exact?
+  that work separately for each input?~
+- ~Which source of error does autograd avoid, and why are its results still
+  not perfectly exact?~
 
-Refer to the lecture box **“Why not estimate derivatives from nearby values?”**
-if needed.
+~Refer to the lecture box **“Why not estimate derivatives from nearby values?”**
+if needed.~
 
-[your answer here]
+a. 
