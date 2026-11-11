@@ -48,6 +48,7 @@ partial df/dy  (x,y)=(-1,3)                        9.0000       9.0000   0.00e+0
 ---------------------------------------------------------------------------------
 If every |diff| is ~0, your manual rules and autograd agree.  
 They all agree.
+They agreed on my first try, and one type of mistake it owuld have caught would be if I had forgotten to multiply my composite by the derivative of the inner, I would have gotten totally different results for x = 0 (and others).
 
 ---
 
