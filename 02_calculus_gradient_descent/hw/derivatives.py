@@ -17,7 +17,7 @@ Compare results:  uv run python derivatives.py
 
 from __future__ import annotations
 
-import torch
+import torch #type: ignore
 
 # ── Part 1: Manual Derivatives ────────────────────────────────────────────────
 
