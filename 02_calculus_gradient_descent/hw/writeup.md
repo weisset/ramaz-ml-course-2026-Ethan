@@ -76,9 +76,10 @@ $v'(u)=2u$
 $u'(x)=3x^2$
 
 $f'(x)=v'(u(x)) \cdot u'(x)=2u(x) \cdot 3x^2 = (2x^3 + 4)3x^2 = 6x^5 + 12x^2$
-
-
-
+It records that first step of cubing the input, then the adding 2 (those two are what i put for the inner function), then records that all of that gets squared. The backwards pass will return the derivative (which is the gradient since it's a single variable function) and store that function f', in the data for the tensor.
+The steps of the backwards pass would be to do derivative with respect to the outer square, then multiplied by derivative with respect to the inner, which is going to be the derivative with respect to the cube plus derivative with respect to the constant, and then multiply that derivative with respect to the cubed by derivative with respect to x which is 1. that gets you 2(inner) * (1*3x^2 + 0) = 6x^2 * (inner)
+ etc.
+Then when we ask for .grad it applies that function to x which has whatever value we gave it and that is the gradient.
 
 ---
 
@@ -111,3 +112,6 @@ forward differences with computing the gradient using PyTorch autograd:~
 if needed.~
 
 a. 
+the value obtained is 18, and the new update would be x=1-0.01(18)=1-0.18=0.82. This would be a step to the left because we are decreasing the value of the parameter, since we are subtracting a scalar multiple of the gradient from the original value(s) of the parameter (the negative gradient is the steepest local **descent**).
+
+b. so g+2 is 20, the new update would be 1-0.2 = 0.8, the difference between the old and new update are 0.02 (that is old - new). The direction would not change because the sign stays the same, but the distance would be greater. Since it keeps the direction, it's possible that increasing teh value of the gradient by a scalar constant could bring me even closer to a minimum loss, but i could also accidentally overshoot, but either way I will be going in the right direction (unless of course I cause the sign to switch).
