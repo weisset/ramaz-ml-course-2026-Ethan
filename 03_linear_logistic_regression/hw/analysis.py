@@ -15,6 +15,9 @@ Prerequisites: complete regression.py first.
 from __future__ import annotations
 
 import torch
+import sklearn.datasets
+import sklearn.model_selection
+import sklearn.preprocessing
 from sklearn.datasets import fetch_california_housing, load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -26,7 +29,18 @@ from regression import LinearRegression, LogisticRegression
 
 def load_regression_data() -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
     """See spec.pdf."""
-    raise NotImplementedError("Implement load_regression_data()")
+
+    cali_housing = fetch_california_housing()
+    X_train, X_test, y_train, y_test = train_test_split(cali_housing.data, cali_housing.target, test_size = 0.2, random_state = 42)
+    scaler = StandardScaler()
+    X_train_scale = scaler.fit_transform(X_train)
+    X_test_scale = scaler.transform(X_test)
+    return (
+        torch.tensor(X_train_scale, dtype = torch.float32),
+        torch.tensor(X_test_scale, dtype = torch.float32),
+        torch.tensor(y_train, dtype = torch.float32),
+        torch.tensor(y_test, dtype = torch.float32)
+    )
 
 
 def train_linear_model(
